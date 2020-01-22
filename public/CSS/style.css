@@ -1,0 +1,38 @@
+.select2{
+    width: 20%; 
+    margin: 1.5em; 
+    display: inline-block;
+}
+
+.btn-recherche{
+    display: inline-block; 
+    margin-bottom: 0.5em;
+}
+
+#recherche{
+    display:block;
+}
+
+.card-img-top{
+    height: 200px; 
+    width: 132px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.card{
+    width: 18rem; 
+    margin-bottom: 2em;
+}
+
+#pagination-container{
+    text-align: center;
+} 
+
+#pagination{
+    display:inline-block;
+} 
+
+.card-title{
+    text-align: center;
+}
