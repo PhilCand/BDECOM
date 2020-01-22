@@ -11,7 +11,7 @@ $this->load->helper('url'); ?>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <?php echo link_tag(base_url('public/css/style.css')); ?>
+    <?php echo link_tag(base_url('public/CSS/style.css')); ?>
     <script src="<?php echo base_url('public/js/script.js') ?>"></script>
     <title>Magasin BD</title>
 </head>
@@ -23,8 +23,8 @@ $this->load->helper('url'); ?>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><?php echo anchor('Magasin', 'Magasin', 'class="nav-link"') ?></li>
-                <li class="nav-item"><?php echo anchor('#', 'Panier', 'class="nav-link"') ?></li>
+                <li class="nav-item"><?php echo anchor('Magasin/clearSession', 'Magasin', 'class="nav-link"') ?></li>
+                <li class="nav-item"><?php echo anchor('Panier', 'Panier', 'class="nav-link"') ?></li>
 
             </ul>
 

@@ -16,6 +16,7 @@ class Bande_dessinee extends MY_model
     private $_genre_id;
     private $_editeur_id;
     private $_fournisseur_id;
+    private $_qte;
 
 
     public function get_db_table()
@@ -30,8 +31,30 @@ class Bande_dessinee extends MY_model
 
     public function record_count()
     {
-        return $this->db->count_all("bd");
+       // return $this->db->count_all("bd");
+       $query = $this->db->select('COUNT(*) as total')
+       ->from($this->get_db_table())       
+       ->get();
+
+       foreach ($query->result() as $row) {
+           $data[] = $row;
+       }
+       return $data;
     }
+
+    public function record_count_genre($genre_id)
+    {
+        $query = $this->db->select('COUNT(*) as total')
+            ->from($this->get_db_table())
+            ->where("genre_id = $genre_id")
+            ->get();
+
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+    }
+
 
 
     public function get_data_bd($limit, $start, $id_genre)
@@ -42,15 +65,13 @@ class Bande_dessinee extends MY_model
                 ->from($this->get_db_table())
                 ->limit($limit, $start)
                 ->get();
-        }
-
-        else {
+                
+        } else {
             $query =  $this->db->select('*')
                 ->from($this->get_db_table())
                 ->where("genre_id = $id_genre")
                 ->limit($limit, $start)
                 ->get();
-
         }
 
         if ($query->num_rows() > 0) {
@@ -62,6 +83,14 @@ class Bande_dessinee extends MY_model
         return false;
     }
 
+    public function getBdById($id){
+        $query = $this->db->select('*')
+        ->from($this->get_db_table())
+        ->where("id = $id")
+        ->get();
+
+        return $query->result();
+    }
 
     /**
      * Get the value of _id
@@ -287,6 +316,26 @@ class Bande_dessinee extends MY_model
     public function set_fournisseur_id($_fournisseur_id)
     {
         $this->_fournisseur_id = $_fournisseur_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of _qte
+     */ 
+    public function get_qte()
+    {
+        return $this->_qte;
+    }
+
+    /**
+     * Set the value of _qte
+     *
+     * @return  self
+     */ 
+    public function set_qte($_qte)
+    {
+        $this->_qte = $_qte;
 
         return $this;
     }

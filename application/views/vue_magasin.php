@@ -1,6 +1,7 @@
 
 <?php
 $this->load->helper('form');
+$this->load->helper('url');
 
 $options[-1] = "NOGENRE";
 foreach ($genres as $genre) { 
@@ -8,18 +9,21 @@ foreach ($genres as $genre) {
 }
 
 $attributs = array(
-  'class' => 'form-control select2',
-  'name' => 'genres'
+  'class' => 'form-control select2'
 );
 
 echo form_open('magasin');
 echo('<div id="recherche">');
-echo form_dropdown('location_category', $options, '-1', $attributs);
+echo form_dropdown('genres', $options, '-1', $attributs);
 echo form_submit('search_submit', 'Rechercher', 'class="mt-auto btn btn-primary btn-recherche"' );
 echo('</div>');
 echo form_close();
 
 ?>
+
+<a href="<?php echo base_url('Magasin/clearSession')?>" class="btn btn-secondary">Clear Session</a>
+
+<a href="<?php echo base_url('Panier/clearPanier')?>" class="btn btn-secondary">Clear Panier</a>
 
 <div class="d-flex flex-wrap justify-content-around">
   <?php
@@ -29,10 +33,11 @@ echo form_close();
       <img src="<?php echo base_url('public/couv/' . $bd->ref) ?>.jpg"  class="card-img-top" alt="couverture">
       <div class="card-body d-flex flex-column">
         <h6 class="card-title"><?php echo $bd->titre ?></h6>
+        <h6 class="card-title"><?php echo $bd->prix_public.' €' ?></h6>
         <button type="button" class="mt-auto btn btn-secondary" data-toggle="modal" data-target="#exampleModal<?php echo $i ?>">
           Résumé
         </button>
-        <a href="#" class="mt-auto btn btn-primary">Ajouter au panier</a>
+        <a href="<?php echo base_url('Panier/ajouterPanier/'.$bd->id)?>" class="mt-auto btn btn-primary">Ajouter au panier</a>
       </div>
     </div>
 

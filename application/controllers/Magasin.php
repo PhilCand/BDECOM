@@ -1,18 +1,49 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+
 class Magasin extends CI_Controller
 {
+
 
     public function index()
     {
 
+        if (isset($_SESSION['genre']) && isset($_POST['genres'])) {
+            if ($_SESSION['genre'] != $_POST['genres']) {
+                unset($_SESSION{'genre'});
+            }
+        }
+
         $this->load->helper('url');
         $this->load->library('pagination');
 
+        if (isset($_SESSION['genre'])) {
+            if ($_SESSION['genre'] == -1) {
+                $resultat =  $this->Bande_dessinee->record_count();
+            } else {
+                $resultat = $this->Bande_dessinee->record_count_genre($_SESSION['genre']);
+            }
+        } else if (isset($_POST['genres'])) {
+            if ( $_POST['genres'] == -1) {
+                $resultat =  $this->Bande_dessinee->record_count();
+            } else {
+                $resultat = $this->Bande_dessinee->record_count_genre($_POST['genres']);
+            }
+            $_SESSION['genre'] = $_POST['genres'];
+
+        } else {
+            $resultat =  $this->Bande_dessinee->record_count();
+
+        }
+
+        //var_dump($_SESSION['genre']);
+        //echo $resultat[0]->total;
+
         $config = array();
         $config['base_url'] = base_url() . 'Magasin/index';
-        $config['total_rows'] = $this->Bande_dessinee->record_count();
+        $config['total_rows'] = $resultat[0]->total;
         $config['per_page'] = 20;
         $config["uri_segment"] = 3;
         //config for bootstrap pagination class integration
@@ -36,25 +67,31 @@ class Magasin extends CI_Controller
 
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 
-        if(isset($_POST['genres'])){
-            $data["results"] = $this->Bande_dessinee->get_data_bd($config['per_page'], $page, $_POST['genres']);
-        }
+        $data["results"] = "";
 
-        else{
+        if (isset($_SESSION['genre'])) {
+            $data["results"] = $this->Bande_dessinee->get_data_bd($config['per_page'], $page, $_SESSION['genre']);
+        } else {
             $data["results"] = $this->Bande_dessinee->get_data_bd($config['per_page'], $page, -1);
         }
-        
+
 
         $data["links"] = $this->pagination->create_links();
 
-        echo $_POST['genres'];
 
         //________________________________
 
-        $data["genres"] = $this->Genre->get_data(); 
+        $data["genres"] = $this->Genre->get_data();
 
         $data['contents'] = 'vue_magasin';
 
         $this->load->view('templates/template', $data);
+    }
+
+
+    public function clearSession()
+    {
+        unset($_SESSION{'genre'});
+        redirect('Magasin/index');
     }
 }
