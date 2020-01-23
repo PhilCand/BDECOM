@@ -1,7 +1,8 @@
 .select2{
-    width: 20%; 
+    width: 300px; 
     margin: 1.5em; 
     display: inline-block;
+
 }
 
 .btn-recherche{
@@ -41,9 +42,53 @@
 
     text-align: center;
     font-size: x-large;
-    margin-top: 10em;
-    margin-bottom: 10em;
+    margin-top: 16.55em;
+    margin-bottom: 16.55em;
 }
+
+body{
+    margin-top: 4em;
+}
+
+.navbar-brand{
+    font-size: x-large !important;
+}
+
+.prix{
+    font-weight: lighter !important;
+}
+
+.titre{
+    display: block;
+    height: 2em;
+}
+
+.espace{
+    display: block;
+    height: 0.7em;
+}
+
+.panier{
+    display: inline-block;
+    
+}
+
+.panier_container{
+
+    text-align: center;
+    min-height: 50.1em;
+}
+
+.ctrl_panier{
+    width: 2em;
+}
+
+td:first-child{
+    width: 500px;
+}
+
+
+
 
 /* .footer {
     position: absolute;
@@ -54,4 +99,3 @@
     color: rgb(0, 0, 0); */
 
 
-}

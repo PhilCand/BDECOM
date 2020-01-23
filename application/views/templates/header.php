@@ -1,5 +1,14 @@
 <?php $this->load->helper('html');
-$this->load->helper('url'); ?>
+$this->load->helper('url'); 
+
+if (isset($_SESSION['panier'])){
+    $qte = 0;
+    foreach($_SESSION['panier'] as $bd){
+        $qte += $bd->qte;
+    }
+}
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -17,14 +26,16 @@ $this->load->helper('url'); ?>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand mr-sm-5" href="#">BD Shop</a><br>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><?php echo anchor('Magasin/clearSession', 'Magasin', 'class="nav-link"') ?></li>
-                <li class="nav-item"><?php echo anchor('Panier', 'Panier', 'class="nav-link"') ?></li>
+                <li ><?php echo anchor('Magasin/clearSession', 'Magasin', 'class="mt-auto btn btn-secondary mr-sm-3"') ?></li>
+                <li ><?php echo anchor('Panier', isset($_SESSION['panier']) ? 'Panier : '.$qte : 'Panier', 'class="mt-auto btn btn-outline-success mr-sm-3"') ?></li>
 
             </ul>
 

@@ -17,6 +17,8 @@ class Bande_dessinee extends MY_model
     private $_editeur_id;
     private $_fournisseur_id;
     private $_qte;
+    private $_nom_editeur;
+    private $_nom_auteur;
 
 
     public function get_db_table()
@@ -55,21 +57,27 @@ class Bande_dessinee extends MY_model
             return $data;
     }
 
-
-
     public function get_data_bd($limit, $start, $id_genre)
     {
 
         if ($id_genre == -1) {
-            $query =  $this->db->select('*')
+            $query =  $this->db->select('bd.*, editeur.nom as nom_editeur, GROUP_CONCAT(auteur.nom SEPARATOR ", ") as nom_auteur')
                 ->from($this->get_db_table())
+                ->join('editeur','bd.editeur_id = editeur.id') 
+                ->join('auteur_bd','bd.id = auteur_bd.bd_id')
+                ->join('auteur','auteur.id = auteur_bd.auteur_id', 'left')
+                ->group_by('bd.id')
                 ->limit($limit, $start)
                 ->get();
                 
         } else {
-            $query =  $this->db->select('*')
+            $query =  $this->db->select('bd.*, editeur.nom as nom_editeur, GROUP_CONCAT(auteur.nom SEPARATOR ", ") as nom_auteur')
                 ->from($this->get_db_table())
+                ->join('editeur','bd.editeur_id = editeur.id') 
+                ->join('auteur_bd','bd.id = auteur_bd.bd_id')
+                ->join('auteur','auteur.id = auteur_bd.auteur_id', 'left')
                 ->where("genre_id = $id_genre")
+                ->group_by('bd.id')
                 ->limit($limit, $start)
                 ->get();
         }
@@ -339,4 +347,5 @@ class Bande_dessinee extends MY_model
 
         return $this;
     }
+
 }
