@@ -1,15 +1,14 @@
 <?php $this->load->helper('html');
-$this->load->helper('url'); 
+$this->load->helper('url');
 
-if (isset($_SESSION['panier'])){
+if (isset($_SESSION['panier'])) {
     $qte = 0;
-    foreach($_SESSION['panier'] as $bd){
+    foreach ($_SESSION['panier'] as $bd) {
         $qte += $bd->qte;
     }
 }
 
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -26,17 +25,18 @@ if (isset($_SESSION['panier'])){
 </head>
 
 <body>
-    
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand mr-sm-5" href="#">BD Shop</a><br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand mr-sm-5" href="<?php echo base_url('Magasin/clearSearch') ?>">BD Shop</a><br>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li ><?php echo anchor('Magasin/clearSession', 'Magasin', 'class="mt-auto btn btn-secondary mr-sm-3"') ?></li>
-                <li ><?php echo anchor('Panier', isset($_SESSION['panier']) ? 'Panier : '.$qte : 'Panier', 'class="mt-auto btn btn-outline-success mr-sm-3"') ?></li>
-
+        <div class="collapse navbar-collapse " id="navbarNav">
+            <ul class="navbar-nav ">
+                <!-- <li><?php echo anchor('Magasin/clearSearch', 'Magasin', 'class="mt-auto btn btn-secondary mr-sm-3"') ?></li> -->
+                <li><?php echo anchor('Panier', isset($_SESSION['panier']) ? 'Panier : ' . $qte : 'Panier', 'class="mt-auto btn btn-outline-success mr-sm-3"') ?></li>
             </ul>
-
+            <form class="form-inline my-2 my-lg-0 ml-auto " action=<?php echo base_url('Magasin') ?> method="POST">
+                <input class="form-control mr-sm-2" type="search" placeholder="Rechercher sur le site" aria-label="Search" name="recherche">
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Rechercher</button>
+            </form>
     </nav>

@@ -19,7 +19,7 @@ echo ('</div>');
 echo form_close();
 ?>
 
-<!-- <a href="<?php echo base_url('Magasin/clearSession') ?>" class="btn btn-secondary">Clear Session</a>
+<!-- <a href="<?php echo base_url('Magasin/clearSearch') ?>" class="btn btn-secondary">Clear Session</a>
 
 <a href="<?php echo base_url('Panier/clearPanier') ?>" class="btn btn-secondary">Clear Panier</a> -->
 
@@ -28,17 +28,14 @@ echo form_close();
   $i = 0;
   foreach ($results as $bd) { ?>
     <div class="card">
-
       <img src="<?php echo base_url('public/couv/' . $bd->ref) ?>.jpg" class="card-img-top" onerror="if (this.src != 'error.jpg') this.src = '<?php echo base_url('public/couv/defaut.jpg') ?>';">
-
       <div class="card-body d-flex flex-column">
         <h6 class="card-title titre"><?php echo $bd->titre ?></h6>
         <h6 class="card-title prix"><?php echo $bd->prix_public != null ?  $bd->prix_public . ' €' : '&nbsp' ?></h6>
         <button type="button" class="mt-auto btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal<?php echo $i ?>">Détail</button>
         <div class="espace"></div>
         <?php
-        if ($bd->prix_public == null) {
-        ?>
+        if ($bd->prix_public == null) { ?>
           <a href="<?php echo base_url('Panier/ajouterPanier/' . $bd->id) ?>" class="mt-auto btn btn-outline-success disabled">Ajouter au panier</a>
         <?php } else { ?> <a href="<?php echo base_url('Panier/ajouterPanier/' . $bd->id) ?>" class="mt-auto btn btn-outline-success">Ajouter au panier</a>
         <?php } ?>
@@ -46,7 +43,7 @@ echo form_close();
       </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal detail -->
     <div class="modal fade" id="exampleModal<?php echo $i ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel<?php echo $i ?>" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -60,7 +57,7 @@ echo form_close();
 
             <div class="accordion" id="accordionResume">
               <div class="card" style="width:100%">
-                <div class="card-header" id="headingOne" >
+                <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
                     <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Résumé</button>
                   </h2>
