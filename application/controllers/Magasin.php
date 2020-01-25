@@ -37,7 +37,7 @@ class Magasin extends CI_Controller
         //config de la pagination
         $config = array();
         $config['base_url'] = base_url() . 'Magasin/index';
-        $config['total_rows'] = count($total_tuple);
+        $config['total_rows'] = (!$total_tuple) ? 0 : count($total_tuple);
         $config['per_page'] = 18;
         $config["uri_segment"] = 3;
         //config pagination bootstrap
